@@ -12,8 +12,14 @@
 
 task main()	{
 
+
+
+
+// THis is new code. Hooray!
+
 	while (true) {
     
+
 		//////////////////////////////////////////////////////////	  
 		//
 		// DRIVE 
@@ -82,25 +88,6 @@ task main()	{
 		// motors: elevateleft & elevateright
 
 
-		if (vexRT[Btn6U] == 1) {
-			startMotor(elevateright, 127);
-			startMotor(elevateleft, 127);
-		}
-		else {
-			stopMotor(elevateright);
-			stopMotor(elevateleft);
-		}
-
-		if (vexRT[Btn6D] == 1) {
-			startMotor(elevateright, -127);
-			startMotor(elevateleft, -127);
-		}
-		else {
-			stopMotor(elevateright);
-			stopMotor(elevateleft);
-		}
-
-
 		//////////////////////////////////////////////////////////
 		//
 		// SHOOTER 
@@ -113,40 +100,9 @@ task main()	{
 		// 7u to start
 		// 7D to stop
 		
-
-		if (vexRT[Btn7U] == 1) {
-
-			// TODO: Brozek's Slow Start Code. Don't torque the axel!
-
-			startMotor(shootright, 127);
-			startMotor(shootleft, 127);
-		}
-
-
-		if (vexRT[Btn7D] == 1) {
-
-			// TODO: Do we need slowdown code?
-
-			stopMotor(shootright);
-			stopMotor(shootleft);
-		}
-
-
+			
 		
 
 	} // END while (true)
 
 } // END task main
-
-/*
-
-__        __        _                __  __ _     _     _ _
-\ \      / /__  ___| |_ ___  _ __   |  \/  (_) __| | __| | | ___
- \ \ /\ / / _ \/ __| __/ _ \| '_ \  | |\/| | |/ _` |/ _` | |/ _ \
-  \ V  V /  __/\__ \ || (_) | | | | | |  | | | (_| | (_| | |  __/
-   \_/\_/ \___||___/\__\___/|_| |_| |_|  |_|_|\__,_|\__,_|_|\___|
-
-
-The's no I in Team.
-
-*/
