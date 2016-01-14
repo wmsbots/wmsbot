@@ -16,7 +16,7 @@ task main()	{
 
 
 // THis is new code. Hooray!
-	
+
 	while (true) {
     
 
@@ -41,7 +41,7 @@ task main()	{
 
 		//////////////////////////////////////////////////////////
 		//
-		// COLLECTOR 
+		// COLLECTOR MECHANISM
 		//	
 
 		// motors: collectleft, collectright
