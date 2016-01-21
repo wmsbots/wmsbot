@@ -125,10 +125,14 @@ task main()	{
 
 		if (vexRT[Btn7U] == 1) {
 
-			// TODO: Brozek's Slow Start Code. Don't torque the axel!
 
-			startMotor(shootright, 127);
-			startMotor(shootleft, 127);
+			// Start the motors slowly
+			for (i=2; i<132; i+5) {
+				writeDebugStream(i);
+				startMotor(shootright, i);
+				startMotor(shootleft, i);
+				wait(5);
+			}
 		}
 
 
