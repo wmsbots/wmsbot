@@ -13,13 +13,13 @@
 /*
 __        ____  __ ____     ____
 \ \      / /  \/  / ___|   / ___|___  _ __ ___
- \ \ /\ / /| |\/| \___ \  | |   / _ \| '__/ _ \
-  \ V  V / | |  | |___) | | |__| (_) | | |  __/
-   \_/\_/  |_|  |_|____/   \____\___/|_|  \___|
+\ \ /\ / /| |\/| \___ \  | |   / _ \| '__/ _ \
+\ V  V / | |  | |___) | | |__| (_) | | |  __/
+\_/\_/  |_|  |_|____/   \____\___/|_|  \___|
 */
 
 task main()	{
-writeDebugStreamLine("foo");
+
 	while (true) {
 
 		//////////////////////////////////////////////////////////
@@ -27,20 +27,16 @@ writeDebugStreamLine("foo");
 		// DRIVE
 		//
 
+
 		// RIGHT SIDE
 
-		// TODO: Write code to listen to Channel 2
-		//       move motors driverightfront and driverightback go forward and back
-		//       using analog joystick
-
-
+		motor[driverightback] = vexRT[Ch2];
+		motor[driverightfront] = vexRT[Ch2];
 
 		// LEFT SIDE
 
-		// TODO: Write code to move Channel 3 forward and back
-		//       move motors driveleftfront and driveleftback
-		//       using analog joystick
-
+		motor[driveleftfront] = vexRT[Ch3];
+		motor[driveleftback] = vexRT[Ch3];
 
 
 		//////////////////////////////////////////////////////////
@@ -50,62 +46,57 @@ writeDebugStreamLine("foo");
 
 		// motors: collectleft, collectright
 		//
-
-		// TODO: Forward. Reverse. Stop.
 		// Press 5U for foward. Release to stop
 		// Press 5D for reverse. Release to stop
 		// motors: collectleft & collectright
-
-		// POTENTIAL BUG! What happens if 5U and 5D are pressed at the same time
-
 
 		// TODO: Validate that each motor is spinning in the correct direction
 		//       If only one motor is needed, remove code for second motor
 
 		if (vexRT[Btn5U] == 1) {
-			setMotor(collectright, 127);
-			setMotor(collectleft, 127);
+			motor[collectleft] = 127;
+			motor[collectright] = 127;
 		}
 		else {
-			stopMotor(collectright);
-			stopMotor(collectleft);
+			motor[collectleft] = 0;
+			motor[collectright] = 0;
 		}
 
 		if (vexRT[Btn5D] == 1) {
-			setMotor(collectright, -127);
-			setMotor(collectleft, -127);
+			motor[collectleft] = -127;
+			motor[collectright] = -127;
 		}
 		else {
-			stopMotor(collectright);
-			stopMotor(collectleft);
+			motor[collectleft] = 0;
+			motor[collectright] = 0;
 		}
 
 
 		//////////////////////////////////////////////////////////
 		//
 		// ELEVATOR
-		// TODO: Forward. Reverse. Stop.
+		//
 		// Press 6U for foward. Release to stop
 		// Press 6D for reverse. Release to stop
 		// motors: elevateleft & elevateright
 
 
 		if (vexRT[Btn6U] == 1) {
-			setMotor(elevateright, 127);
-			setMotor(elevateleft, 127);
+			motor[elevateleft] = 127;
+			motor[elevateright] = 127;
 		}
 		else {
-			stopMotor(elevateright);
-			stopMotor(elevateleft);
+			motor[elevateleft] = 0;
+			motor[elevateright] = 0;
 		}
 
 		if (vexRT[Btn6D] == 1) {
-			setMotor(elevateright, -127);
-			setMotor(elevateleft, -127);
+			motor[elevateleft] = -127;
+			motor[elevateright] = -127;
 		}
 		else {
-			stopMotor(elevateright);
-			stopMotor(elevateleft);
+			motor[elevateleft] = 0;
+			motor[elevateright] = 0;
 		}
 
 
@@ -115,43 +106,43 @@ writeDebugStreamLine("foo");
 		//
 		// motors: shootleft, shootright
 
-		// todo: stop. start
-		//        warmup code
-
 		// 7u to start
 		// 7D to stop
 
 
+
 		if (vexRT[Btn7U] == 1) {
 
-
 			// Start the motors slowly
-			int i;
-			i=0;
-			while(i<127) {
 
-				setMotor(shootright, i);
-				setMotor(shootleft, i);
-				wait(5);
-				i++;
+			// If Motor is not running, start it up
+			if (motor[shootright] < 1) {
+				int i;
+				for (i=0; i<127; i=i+20) {
+					motor[shootright] = i;
+					motor[shootleft] = i;
+
+					// Max out Motor speed
+					if (i > 100) {
+						i = 127;
+					}
+				}
 			}
 		}
-
 
 		if (vexRT[Btn7D] == 1) {
 
 			// TODO: Do we need slowdown code?
 
-			stopMotor(shootright);
-			stopMotor(shootleft);
+			motor[shootright] = 0;
+			motor[shootleft] = 0;
 		}
-
-
 
 
 	} // END while (true)
 
 } // END task main
+
 
 /*
 __        __        _                __  __ _     _     _ _
@@ -159,5 +150,7 @@ __        __        _                __  __ _     _     _ _
  \ \ /\ / / _ \/ __| __/ _ \| '_ \  | |\/| | |/ _` |/ _` | |/ _ \
   \ V  V /  __/\__ \ || (_) | | | | | |  | | | (_| | (_| | |  __/
    \_/\_/ \___||___/\__\___/|_| |_| |_|  |_|_|\__,_|\__,_|_|\___|
+
 There's No I in Team.
+
 */
