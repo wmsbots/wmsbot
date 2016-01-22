@@ -16,16 +16,15 @@ __        ____  __ ____     ____
  \ \ /\ / /| |\/| \___ \  | |   / _ \| '__/ _ \
   \ V  V / | |  | |___) | | |__| (_) | | |  __/
    \_/\_/  |_|  |_|____/   \____\___/|_|  \___|
-
 */
 
 task main()	{
-
+writeDebugStreamLine("foo");
 	while (true) {
-    
-		//////////////////////////////////////////////////////////	  
+
+		//////////////////////////////////////////////////////////
 		//
-		// DRIVE 
+		// DRIVE
 		//
 
 		// RIGHT SIDE
@@ -47,7 +46,7 @@ task main()	{
 		//////////////////////////////////////////////////////////
 		//
 		// COLLECTOR MECHANISM
-		//	
+		//
 
 		// motors: collectleft, collectright
 		//
@@ -59,13 +58,13 @@ task main()	{
 
 		// POTENTIAL BUG! What happens if 5U and 5D are pressed at the same time
 
-		
+
 		// TODO: Validate that each motor is spinning in the correct direction
 		//       If only one motor is needed, remove code for second motor
 
 		if (vexRT[Btn5U] == 1) {
-			startMotor(collectright, 127);
-			startMotor(collectleft, 127);
+			setMotor(collectright, 127);
+			setMotor(collectleft, 127);
 		}
 		else {
 			stopMotor(collectright);
@@ -73,8 +72,8 @@ task main()	{
 		}
 
 		if (vexRT[Btn5D] == 1) {
-			startMotor(collectright, -127);
-			startMotor(collectleft, -127);
+			setMotor(collectright, -127);
+			setMotor(collectleft, -127);
 		}
 		else {
 			stopMotor(collectright);
@@ -84,7 +83,7 @@ task main()	{
 
 		//////////////////////////////////////////////////////////
 		//
-		// ELEVATOR 
+		// ELEVATOR
 		// TODO: Forward. Reverse. Stop.
 		// Press 6U for foward. Release to stop
 		// Press 6D for reverse. Release to stop
@@ -92,8 +91,8 @@ task main()	{
 
 
 		if (vexRT[Btn6U] == 1) {
-			startMotor(elevateright, 127);
-			startMotor(elevateleft, 127);
+			setMotor(elevateright, 127);
+			setMotor(elevateleft, 127);
 		}
 		else {
 			stopMotor(elevateright);
@@ -101,8 +100,8 @@ task main()	{
 		}
 
 		if (vexRT[Btn6D] == 1) {
-			startMotor(elevateright, -127);
-			startMotor(elevateleft, -127);
+			setMotor(elevateright, -127);
+			setMotor(elevateleft, -127);
 		}
 		else {
 			stopMotor(elevateright);
@@ -112,8 +111,8 @@ task main()	{
 
 		//////////////////////////////////////////////////////////
 		//
-		// SHOOTER 
-		//		
+		// SHOOTER
+		//
 		// motors: shootleft, shootright
 
 		// todo: stop. start
@@ -121,17 +120,20 @@ task main()	{
 
 		// 7u to start
 		// 7D to stop
-		
+
 
 		if (vexRT[Btn7U] == 1) {
 
 
 			// Start the motors slowly
-			for (i=2; i<132; i+5) {
-				writeDebugStream(i);
-				startMotor(shootright, i);
-				startMotor(shootleft, i);
+			int i;
+			i=0;
+			while(i<127) {
+
+				setMotor(shootright, i);
+				setMotor(shootleft, i);
 				wait(5);
+				i++;
 			}
 		}
 
@@ -145,22 +147,17 @@ task main()	{
 		}
 
 
-		
+
 
 	} // END while (true)
 
 } // END task main
 
 /*
-
 __        __        _                __  __ _     _     _ _
 \ \      / /__  ___| |_ ___  _ __   |  \/  (_) __| | __| | | ___
  \ \ /\ / / _ \/ __| __/ _ \| '_ \  | |\/| | |/ _` |/ _` | |/ _ \
   \ V  V /  __/\__ \ || (_) | | | | | |  | | | (_| | (_| | |  __/
    \_/\_/ \___||___/\__\___/|_| |_| |_|  |_|_|\__,_|\__,_|_|\___|
-
-
 There's No I in Team.
-
-
 */
