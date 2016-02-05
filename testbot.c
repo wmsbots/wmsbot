@@ -14,6 +14,13 @@ task main()
 {
 
 
+/*
+ _____         _   ____        _
+|_   _|__  ___| |_| __ )  ___ | |_
+  | |/ _ \/ __| __|  _ \ / _ \| __|
+  | |  __/\__ \ |_| |_) | (_) | |_
+  |_|\___||___/\__|____/ \___/ \__|.c
+*/
 	// Test program to spin motors 1-5 forward and 6-10 in reverse at full speed.
 
 	while (1) {
