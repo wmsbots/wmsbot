@@ -30,7 +30,7 @@ task main()	{
 		int shooterButtonPressed = 0;
 
 
-		int shooterSpeed = 100;
+		int shooterSpeed = 127;
 
 		// Used to filter out joystick abberations
 		int threshold = 10;
