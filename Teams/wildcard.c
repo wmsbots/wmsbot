@@ -34,6 +34,7 @@ task main()	{
 		//
 		// This code has filtering in place
 		// Because the joystick returns a value that is not always
+
 		// exactly zero.
 		//
 		// Because of this, the Cortex makes a whining sound
