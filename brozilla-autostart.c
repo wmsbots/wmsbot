@@ -91,26 +91,28 @@ task main()	{
 		// Because the joystick returns a value that is not always
 		// exactly zero.
 
-		if(abs(vexRT[Ch3]) > threshold)         // If the left joystick is greater than or less than the threshold:
+		if(abs(vexRT[Ch3]) > threshold)
 		{
 			motor[dl]  = (vexRT[Ch3] );
 		}
-		else                                    // If the left joystick is within the threshold:
+		else
 		{
-			motor[dl]  = 0;                // Stop the left motor (cancel noise)
+			motor[dl]  = 0;
 		}
 
-		if(abs(vexRT[Ch2]) > threshold)         // If the right joystick is greater than or less than the threshold:
+		if(abs(vexRT[Ch2]) > threshold)
 		{
 			motor[dr] = (vexRT[Ch2]);
 		}
-		else                                    // If the right joystick is within the threshold:
+		else
 		{
-			motor[dr] = 0;                // Stop the right motor (cancel noise)
+			motor[dr] = 0;
 		}
 
-		// SHOOTERS
-
+	//////////////////////////////////////////////////////////
+	//
+	// SHOOTERS
+	//
 
 		if (vexRT[Btn6U] == 1) {
 			shooterMotors(shooterSpeed);
@@ -118,7 +120,10 @@ task main()	{
 			shooterMotors(0);
 		}
 
-		// Hold 5U to drive elevator
+	//////////////////////////////////////////////////////////
+	//
+	// INTAKE MECHANISM
+	//
 
 		if (vexRT[Btn5U] == 1) {
 			intakeMotors(127);
