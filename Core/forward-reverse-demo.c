@@ -20,6 +20,9 @@
 // Function to set motor speed. Pass in a zero to stop
 //
 // You can add or remove motors here
+//
+// You can create many of these functions to drive
+// specific motor groups
 
 void spinMotors(int speed) {
 	motor[m1] = speed;
@@ -48,8 +51,5 @@ task main()
 				spinMotors(0);
 			}
 		}
-
 	}
-
-
 }
