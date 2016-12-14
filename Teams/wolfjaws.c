@@ -57,40 +57,44 @@ task main()	{
 		{
 			motor[dr1] = 0;                // Stop the right motor (cancel noise)
 		}
-	}
-	//This code controls the forklift
-while(vexRT[Btn6U]==1)
-{
-	motor[forklift]=100; //Forklift up
-}
-while(vexRT[Btn6D]==1)
-{
-	motor[forklift]=-100; //Forklift down
-}
+	 
+		 //THIS IS THE ARM CODE
+		 while(vexRT[Btn6U]==1)
+		{
+			motor[forklift]=100; //Forklift up
+		}
+		while(vexRT[Btn6D]==1)
+		{
+			motor[forklift]=-100; //Forklift down
+		}
 
-//This code controls the thrower
-while(vexRT[Btn7U]==1)
-{
-	motor[mthrower1]=100; //Thrower up
-}
-while(vexRT[Btn7D]==1)
-{
-	motor[mthrower1]=-100; //Thrower down
-}while(vexRT[Btn7U]==1)
-{
-	motor[mthrower2]=100; //Thrower up
-}
-while(vexRT[Btn7D]==1)
-{
-	motor[mthrower2]=-100; //Thrower down
-}
-//This code controls the pincer
-while(vexRT[Btn5U]==1)
-{
-	motor[mpincer]=100; //Pincer in
-}
-while(vexRT[Btn5D]==1)
-{
-	motor[mpincer]=100; //Pincer out
-}
-}
+		//This code controls the thrower
+		while(vexRT[Btn7U]==1)
+		{
+			motor[mthrower1]=100; //Thrower up
+		}
+		while(vexRT[Btn7D]==1)
+		{
+			motor[mthrower1]=-100; //Thrower down
+		}while(vexRT[Btn7U]==1)
+		{
+			motor[mthrower2]=100; //Thrower up
+		}
+		while(vexRT[Btn7D]==1)
+		{
+			motor[mthrower2]=-100; //Thrower down
+		}
+		//This code controls the pincer
+		while(vexRT[Btn5U]==1)
+		{
+			motor[mpincer]=100; //Pincer in
+		}
+		while(vexRT[Btn5D]==1)
+		{
+			motor[mpincer]=100; //Pincer out
+		}
+		}
+
+
+		}
+
