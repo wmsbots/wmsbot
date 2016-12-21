@@ -1,4 +1,4 @@
-#pragma config(Motor,  port1,           mpincer,       tmotorVex393_HBridge, openLoop)
+
 #pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           mthrower1,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port4,           mthrower2,      tmotorVex393_MC29, openLoop)
@@ -84,17 +84,7 @@ task main()	{
 		{
 			motor[mthrower2]=-100; //Thrower down
 		}
-		//This code controls the pincer
-		while(vexRT[Btn5U]==1)
-		{
-			motor[mpincer]=100; //Pincer in
-		}
-		while(vexRT[Btn5D]==1)
-		{
-			motor[mpincer]=100; //Pincer out
-		}
-		}
-
+		
 
 		}
 
