@@ -1,1 +1,14 @@
+#pragma config(Motor,  port1,           dr,            tmotorVex269_HBridge, openLoop)
+#pragma config(Motor,  port2,           stl,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           sbl,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           str,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           sbr,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           intakefront,   tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           intakeback,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port8,           m8,            tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port9,           m9,            tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port10,          dl,            tmotorVex269_HBridge, openLoop)
 
+task main()
+{
+  motor[dr]=100;
