@@ -11,8 +11,7 @@
  
 MiniMBP:~ matt$
 Weston Middle School
-*/
-/*
+
 task main()	{
  while (true) {
 		// Used to filter out joystick abberations
