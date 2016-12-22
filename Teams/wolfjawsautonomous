@@ -11,4 +11,17 @@
 
 task main()
 {
-  motor[dr]=100;
+  while(true)
+  {
+    motor[dr]=100;
+    motor[stl]=100;
+    motor[sbl]=100;
+    motor[str]=100;
+    motor[sbr]=100;
+    motor[intakefront]=100;
+    motor[intakeback]=100;
+    motor[m8]=100;
+    motor[m9]=100;
+    motor[dl]=100;
+  }
+}
