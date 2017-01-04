@@ -1,27 +1,21 @@
-#pragma config(Motor,  port1,           dr,            tmotorVex269_HBridge, openLoop)
-#pragma config(Motor,  port2,           stl,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port3,           sbl,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           str,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           sbr,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           intakefront,   tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port7,           intakeback,    tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port8,           m8,            tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port9,           m9,            tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port10,          dl,            tmotorVex269_HBridge, openLoop)
+#pragma config(Motor,  port1,           mpincer,       tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           mthrower1,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           mthrower2,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
+#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
 
 task main()
 {
-  while(true)
+  motor[dr1]=127;
+  motor[dl1]=127;
+  wait1Msec(3000);
+  
+  if()
   {
-    motor[dr]=100;
-    motor[stl]=100;
-    motor[sbl]=100;
-    motor[str]=100;
-    motor[sbr]=100;
-    motor[intakefront]=100;
-    motor[intakeback]=100;
-    motor[m8]=100;
-    motor[m9]=100;
-    motor[dl]=100;
+    
   }
+  
+  
+  
 }
