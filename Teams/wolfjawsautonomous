@@ -4,14 +4,16 @@
 #pragma config(Motor,  port4,           mthrower2,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
 #pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
+#pragma config(Sensor, 
 
 task main()
 {
+  ultrasonic_value = SensorValue(sonarSensor);
   motor[dr1]=127;
   motor[dl1]=127;
   wait1Msec(3000);
   
-  if()
+  if(ultrasonic_value)
   {
     
   }
