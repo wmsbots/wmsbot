@@ -8,48 +8,37 @@
 
 task main()
 {
-  int distance = 30;
-  int ultrasonic_value = SensorValue(ultraSonic);
-  motor[dr1]=127;
-  motor[dl1]=127;
-  wait1Msec(3000);
+
+  int speed;      
+  int sonar_value;
+  int distance = 25;
   
-  if(ultrasonic_value < distance)
+  while(true)
   {
-    motor[dl1]=127;
-    motor[dr1]=-127;
-    wait1Msec(1000);
+    sonar_value = SensorValue(sonarSensor);
     
-    int a = 0;
+    clearLCDLine(0);
+    displayLCDPos(0,0);
+    displayNexLCDString("Sonar: ");
+    displayNextLCDNumber(sonar_value)
     
-    while(a<10)
+    if(sonar_value < 0)
     {
-      motor[dl1]=127; //Move forward for half a second
-      motor[dr1]=127;
-      wait1Msec(500);
-      motor[mpincer] = 127;
-      wait1Msec(500);
-     }
-  }
-  
-   if(ultrasonic_value > distance)
-  {
-    motor[dl1]=-127;
-    motor[dr1]=127;
-    wait1Msec(1000);
-    
-    int a = 0;
-    
-    while(a<10)
+      speed = 127;
+    }
+    else
     {
-      motor[dl1]=127; //Move forward for half a second
-      motor[dr1]=127;
-      wait1Msec(500);
-      motor[mpincer] = 127;
-      wait1Msec(500);
-     }
+      speed =(sonar_value - distance)*2;
+    }
+    
+    clearLCDLine(1);
+    displayLCDPos(1,0);
+    displayNextLCDString("Speed: ");
+    displayNextLCDNumber(speed);
+    
+    motor[leftMotor] = speed;
+    motor[rightMotor] = speed;
+    
+    wait1Msec(100);
   }
-  
-  
-  
 }
