@@ -17,6 +17,24 @@ task main()
   if(ultrasonic_value < distance)
   {
     motor[dl1]=127;
+    motor[dr1]=-127;
+    wait1Msec(1000);
+    
+    int a = 0;
+    
+    while(a<10)
+    {
+      motor[dl1]=127; //Move forward for half a second
+      motor[dr1]=127;
+      wait1Msec(500);
+      motor[mpincer] = 127;
+      wait1Msec(500);
+     }
+  }
+  
+   if(ultrasonic_value > distance)
+  {
+    motor[dl1]=-127;
     motor[dr1]=127;
     wait1Msec(1000);
     
@@ -29,6 +47,7 @@ task main()
       wait1Msec(500);
       motor[mpincer] = 127;
       wait1Msec(500);
+     }
   }
   
   
