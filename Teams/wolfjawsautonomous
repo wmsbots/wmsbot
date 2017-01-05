@@ -8,14 +8,27 @@
 
 task main()
 {
-  ultrasonic_value = SensorValue(sonarSensor);
+  int distance = 30;
+  int ultrasonic_value = SensorValue(ultraSonic);
   motor[dr1]=127;
   motor[dl1]=127;
   wait1Msec(3000);
   
-  if(ultrasonic_value)
+  if(ultrasonic_value < distance)
   {
+    motor[dl1]=127;
+    motor[dr1]=127;
+    wait1Msec(1000);
     
+    int a = 0;
+    
+    while(a<10)
+    {
+      motor[dl1]=127; //Move forward for half a second
+      motor[dr1]=127;
+      wait1Msec(500);
+      motor[mpincer] = 127;
+      wait1Msec(500);
   }
   
   
