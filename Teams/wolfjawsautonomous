@@ -4,7 +4,7 @@
 #pragma config(Motor,  port4,           mthrower2,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
 #pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
-#pragma config(Sensor, 
+#pragma config(Sensor, dgtl1,           ultraSonic,               sensorSONAR_inch)
 
 task main()
 {
