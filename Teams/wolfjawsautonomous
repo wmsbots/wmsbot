@@ -1,55 +1,11 @@
-#pragma config(Motor,  port1,           mpincer,       tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port3,           mthrower1,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           mthrower2,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
-#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
-#pragma config(Sensor, dgtl1,           ultraSonic,               sensorSONAR_inch)
+#pragma config(Motor,  port1,           dr,            tmotorVex393_HBridge, openLoop, reversed)
+#pragma config(Motor,  port2,           stl,           tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port3,           sbl,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           str,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           sbr,           tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port6,           intakefront,   tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port7,           intakeback,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port8,           m8,            tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port9,           m9,            tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port10,          dl,            tmotorVex393_HBridge, openLoop)
 
-task main()
-{
-  int distance = 30;
-  int ultrasonic_value = SensorValue(ultraSonic);
-  motor[dr1]=127;
-  motor[dl1]=127;
-  wait1Msec(3000);
-  
-  if(ultrasonic_value < distance)
-  {
-    motor[dl1]=127;
-    motor[dr1]=-127;
-    wait1Msec(1000);
-    
-    int a = 0;
-    
-    while(a<10)
-    {
-      motor[dl1]=127; //Move forward for half a second
-      motor[dr1]=127;
-      wait1Msec(500);
-      motor[mpincer] = 127;
-      wait1Msec(500);
-     }
-  }
-  
-   if(ultrasonic_value > distance)
-  {
-    motor[dl1]=-127;
-    motor[dr1]=127;
-    wait1Msec(1000);
-    
-    int a = 0;
-    
-    while(a<10)
-    {
-      motor[dl1]=127; //Move forward for half a second
-      motor[dr1]=127;
-      wait1Msec(500);
-      motor[mpincer] = 127;
-      wait1Msec(500);
-     }
-  }
-  
-  
-  
-}
