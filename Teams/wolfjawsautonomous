@@ -1,11 +1,29 @@
-#pragma config(Motor,  port1,           dr,            tmotorVex393_HBridge, openLoop, reversed)
-#pragma config(Motor,  port2,           stl,           tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port3,           sbl,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           str,           tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           sbr,           tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port6,           intakefront,   tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port7,           intakeback,    tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port8,           m8,            tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port9,           m9,            tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port10,          dl,            tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           mthrower1,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
+#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
+
+int speed = 120;
+
+task main()
+{
+	motor[dr1]=120;
+	motor[dl1]=120;
+	wait1Msec(8000);
+	
+	if(vexRT[sonar]>17)
+	{
+		motor[dr1]=-speed;
+		motor[dl1]=speed;
+		wait1Msec(1400);
+	}
+	else if(vexRT[sonar]<17)
+	{
+		motor[dr1]=speed;
+		motor[dl1]=-speed;
+		wait1Msec(1500);
+	}
+	
+}
 
