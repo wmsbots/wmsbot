@@ -38,7 +38,7 @@ task mthrowerCheckUp()
 {
 	if(vexRT[Btn7U]==1)
 	{
-		motor[mthrower1]=120; //Raises thrower whBtn7U is pressed
+		motor[mthrower1]=120; //Raises thrower whBtn5U is pressed
 		motor[mthrower2]=120;
 	}
 	else if(vexRT[Btn7U]==0 && vexRT[Btn7D]==0)
@@ -50,12 +50,12 @@ task mthrowerCheckUp()
 
 task mthrowerCheckDown()
 {
-	if(vexRT[Btn7D]==1)
+	if(vexRT[Btn5D]==1)
 	{
-		motor[mthrower1]=-120; //Raises thrower while 7D is pressed
+		motor[mthrower1]=-120; //Raises thrower while 5D is pressed
 		motor[mthrower2]=-120;
 	}
-	else if(vexRT[Btn7D]==0 && vexRT[Btn7U]==0)
+	else if(vexRT[Btn5D]==0 && vexRT[Btn5U]==0)
 	{
 		motor[mthrower1]=0; //Stop thrower
 		motor[mthrower2]=0;
