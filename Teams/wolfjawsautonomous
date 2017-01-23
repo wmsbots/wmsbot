@@ -3,27 +3,40 @@
 #pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
 #pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
+#pragma config(Sensor, dgt1,  ultrasonicfront,     sensorSONAR_TwoPins_inch)
+#pragma config(Sensor, dgt3,  ultrasonicrightside,     sensorSONAR_TwoPins_inch)
 
 int speed = 120;
 
-task main()
+task autnomous()
 {
-	motor[dr1]=120;
+	//.....................................................................................
+	
+	motor[dr1]=120;                   //Move forward until 3 inches away from fence.
 	motor[dl1]=120;
-	wait1Msec(8000);
+	waitUntil(ultrasonicfront <= 3);
 	
-	if(vexRT[sonar]>17)
+	motor[forklift]=120; //Raise pin and rack for 3 seconds
+	waitMsec(3000);
+	
+	motor[mthrower1]=120; //Hit with flippers
+	motor[mthrower2]=120;
+	waitMsec(1000);
+	
+	if(ultrasonicrightside <= 15) //If right side is less than or equal to 15 inches away from wall
 	{
-		motor[dr1]=-speed;
-		motor[dl1]=speed;
-		wait1Msec(1400);
-	}
-	else if(vexRT[sonar]<17)
-	{
-		motor[dr1]=speed;
-		motor[dl1]=-speed;
-		wait1Msec(1500);
+		motor[dr1]=120; //Turn left 90o
+		motor[dl1]=-120;
+		waitUntil(ultrasonicfront>15);
 	}
 	
+	if(ultrasonicrightside > 15) //If right side is greater than 15 inches away from wall.
+	{
+		motor[dr1]=-120; //Turn right 90o
+		motor[dl1]=120;
+		waitUntil(ultrasonicfront>15);
+	}
+	
+	//.....................................................................................
 }
 
