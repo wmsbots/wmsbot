@@ -1,0 +1,25 @@
+#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           mthrower1,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
+#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
+#pragma config(Sensor, dgt1,  ultrasonicfront,     sensorSONAR_TwoPins_inch)
+#pragma config(Sensor, dgt3,  ultrasonicrightside,     sensorSONAR_TwoPins_inch)
+
+void pre_auton() //Pre-autonomous code (clears all motors)
+{
+  motor[forklift]=0;
+  motor[mthrower1]=0;
+  motor[mthrower2]=0;
+  motor[dr1]=0;
+  motor[dl1]=0;
+ }
+ 
+ task autonomous()
+ {
+ // .....................................................................................
+  motor[dr1]=100;
+  motor[dl1]=100;
+  waitUntil(ultrasonicfront <=
+  // .....................................................................................
+ }
