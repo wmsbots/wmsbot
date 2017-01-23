@@ -37,6 +37,12 @@ task autnomous()
 		waitUntil(ultrasonicfront>15);
 	}
 	
+	motor[dr1]=120; //Drive forward for one second
+	motor[dl1]=120;
+	waitMsec(1000);
+	
+	
+	
 	//.....................................................................................
 }
 
