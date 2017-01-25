@@ -80,6 +80,58 @@ task autonomous()
 
 }
 
+task forkliftCheckUp()
+{
+	if(vexRT[Btn6U]==1)
+	{
+		motor[forklift]=120; //Raises forklift while 6U is pressed
+	}
+	else if(vexRT[Btn6U]==0 && vexRT[Btn6D]==0)
+	{
+		motor[forklift]=0; //Stop thrower
+	}
+
+}
+
+task forkliftCheckDown()
+{
+		if(vexRT[Btn6D]==1)
+	{
+		motor[forklift]=-120; //Lowers forklift while 6D is pressed
+	}
+	else if(vexRT[Btn6D]==0 && vexRT[Btn6U]==0)
+	{
+		motor[forklift]=0; //Stop thrower
+	}
+}
+
+task mthrowerCheckUp()
+{
+	if(vexRT[Btn7U]==1)
+	{
+		motor[mthrower1]=120; //Raises thrower whBtn5U is pressed
+		motor[mthrower2]=120;
+	}
+	else if(vexRT[Btn7U]==0 && vexRT[Btn7D]==0)
+	{
+		motor[mthrower1]=0; //Stop thrower
+		motor[mthrower2]=0;
+	}
+}
+
+task mthrowerCheckDown()
+{
+	if(vexRT[Btn5D]==1)
+	{
+		motor[mthrower1]=-120; //Raises thrower while 5D is pressed
+		motor[mthrower2]=-120;
+	}
+	else if(vexRT[Btn5D]==0 && vexRT[Btn5U]==0)
+	{
+		motor[mthrower1]=0; //Stop thrower
+		motor[mthrower2]=0;
+	}
+}
 
 task usercontrol()
 {
@@ -89,8 +141,48 @@ task usercontrol()
   {
 
     // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
+	// Used to filter out joystick abberations
+		int threshold = 10;
+		//////////////////////////////////////////////////////////
+		//
+		// DRIVE
+		//
+		// This code has filtering in place
+		// Because the joystick returns a value that is not always
+		// exactly zero.
+		//
+		// Because of this, the Cortex makes a whining sound
+		// because the drive motors are being triggered
+		// with values less than 10
+		//
+		// By testing if the joystick is within the threshold
+		// We can turn off the motors and stop the noise
+		// and power drain
+
+		if(abs(vexRT[Ch3]) > threshold)         // If the left joystick is greater than or less than the threshold:
+		{
+			motor[dl1]  = (vexRT[Ch3] );
+		}
+		else                                    // If the left joystick is within the threshold:
+		{
+			motor[dl1]  = (0);
+		}
+		if(abs(vexRT[Ch2]) > threshold)         // If the right joystick is greater than or less than the threshold:
+		{
+			motor[dr1] = (vexRT[Ch2]);
+		}
+		else                                    // If the right joystick is within the threshold:
+		{
+			motor[dr1] = 0;                // Stop the right motor (cancel noise)
+		}
+
+	startTask(forkliftCheckUp);
+
+	startTask(forkliftCheckDown);
+
+	startTask(mthrowerCheckUp);
+
+	startTask(mthrowerCheckDown);
     // ........................................................................
 
   }
