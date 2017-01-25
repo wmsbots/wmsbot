@@ -1,3 +1,5 @@
+#pragma config(Sensor, dgtl1,  ultrasonicfront, sensorSONAR_inch)
+#pragma config(Sensor, dgtl3,  ultrasonicright, sensorSONAR_inch)
 #pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           mthrower1,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
