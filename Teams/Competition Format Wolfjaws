@@ -1,25 +1,97 @@
-#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port3,           mthrower1,     tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
-#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
-#pragma config(Sensor, dgt1,  ultrasonicfront,     sensorSONAR_TwoPins_inch)
-#pragma config(Sensor, dgt3,  ultrasonicrightside,     sensorSONAR_TwoPins_inch)
 
-void pre_auton() //Pre-autonomous code (clears all motors)
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*        Description: Competition template for VEX EDR                      */
+/*                                                                           */
+/*---------------------------------------------------------------------------*/
+
+// This code is for the VEX cortex platform
+#pragma platform(VEX2)
+
+// Select Download method as "competition"
+#pragma competitionControl(Competition)
+
+//Main competition background code...do not modify!
+#include "Vex_Competition_Includes.c"
+
+void pre_auton()
 {
-  motor[forklift]=0;
-  motor[mthrower1]=0;
-  motor[mthrower2]=0;
-  motor[dr1]=0;
-  motor[dl1]=0;
- }
- 
- task autonomous()
- {
- // .....................................................................................
-  motor[dr1]=100;
-  motor[dl1]=100;
-  waitUntil(ultrasonicfront <=
-  // .....................................................................................
- }
+  
+  bStopTasksBetweenModes = false;
+
+
+	// bDisplayCompetitionStatusOnLcd = false;
+
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
+}
+
+task hit()
+{
+  motor[mthrower1]=120; //Hit with flippers
+		motor[mthrower2]=120;
+		waitMsec(1000);
+		
+		motor[mthrower1]=-120; //Reverse flippers
+		motor[mthrower2]=-120; 
+}
+
+task autonomous()
+{
+  // ..........................................................................
+  motor[dr1]=120;                   //Move forward until 3 inches away from fence.
+	motor[dl1]=120;
+	waitUntil(ultrasonicfront <= 3);
+	
+	motor[forklift]=120; //Raise pin and rack for 3 seconds
+	waitMsec(3000);
+	
+	task hit()
+	{
+		motor[mthrower1]=120; //Hit with flippers
+		motor[mthrower2]=120;
+		waitMsec(1000);
+		
+		motor[mthrower1]=-120; //Reverse flippers
+		motor[mthrower2]=-120; 
+	}
+	
+	if(ultrasonicrightside <= 15) //If right side is less than or equal to 15 inches away from wall
+	{
+		motor[dr1]=120; //Turn left 90o
+		motor[dl1]=-120;
+		waitUntil(ultrasonicfront>15);
+	}
+	
+	if(ultrasonicrightside > 15) //If right side is greater than 15 inches away from wall.
+	{
+		motor[dr1]=-120; //Turn right 90o
+		motor[dl1]=120;
+		waitUntil(ultrasonicfront>15);
+	}
+	for ( x = 0; x < 10; x++ )
+	{
+	motor[dr1]=120; //Drive forward for one second
+	motor[dl1]=120;
+	waitMsec(1000);
+	
+	startTask(hit);
+  // ..........................................................................
+
+}
+
+
+task usercontrol()
+{
+  // User control code here, inside the loop
+
+  while (true)
+  {
+
+    // ........................................................................
+    // Insert user code here. This is where you use the joystick values to
+    // update your motors, etc.
+    // ........................................................................
+
+  }
+}
