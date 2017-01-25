@@ -1,3 +1,10 @@
+#pragma config(Sensor, dgtl1,  ultrasonicfront, sensorSONAR_inch)
+#pragma config(Sensor, dgtl3,  ultrasonicright, sensorSONAR_inch)
+#pragma config(Motor,  port2,           forklift,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port3,           mthrower1,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           mthrower2,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port6,           dr1,           tmotorVex269_MC29, openLoop)
+#pragma config(Motor,  port8,           dl1,           tmotorVex269_MC29, openLoop)
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -30,7 +37,7 @@ task hit()
 {
   motor[mthrower1]=120; //Hit with flippers
 		motor[mthrower2]=120;
-		waitMsec(1000);
+		wait1Msec(1000);
 		
 		motor[mthrower1]=-120; //Reverse flippers
 		motor[mthrower2]=-120; 
@@ -41,43 +48,38 @@ task autonomous()
   // ..........................................................................
   motor[dr1]=120;                   //Move forward until 3 inches away from fence.
 	motor[dl1]=120;
-	waitUntil(ultrasonicfront <= 3);
+	waitUntil(SensorValue(ultrasonicfront) <= 3);
 	
 	motor[forklift]=120; //Raise pin and rack for 3 seconds
-	waitMsec(3000);
+	wait1Msec(3000);
 	
-	task hit()
-	{
-		motor[mthrower1]=120; //Hit with flippers
-		motor[mthrower2]=120;
-		waitMsec(1000);
-		
-		motor[mthrower1]=-120; //Reverse flippers
-		motor[mthrower2]=-120; 
-	}
+	startTask(hit);
 	
-	if(ultrasonicrightside <= 15) //If right side is less than or equal to 15 inches away from wall
+	if(SensorValue(ultrasonicright) <= 15) //If right side is less than or equal to 15 inches away from wall
 	{
 		motor[dr1]=120; //Turn left 90o
 		motor[dl1]=-120;
-		waitUntil(ultrasonicfront>15);
+		waitUntil(SensorValue(ultrasonicfront)>15);
 	}
 	
-	if(ultrasonicrightside > 15) //If right side is greater than 15 inches away from wall.
+	if(SensorValue(ultrasonicright) > 15) //If right side is greater than 15 inches away from wall.
 	{
 		motor[dr1]=-120; //Turn right 90o
 		motor[dl1]=120;
-		waitUntil(ultrasonicfront>15);
+		waitUntil(SensorValue(ultrasonicfront)>15);
 	}
+	
+	int x=0;
+	
 	for ( x = 0; x < 10; x++ )
 	{
 	motor[dr1]=120; //Drive forward for one second
 	motor[dl1]=120;
-	waitMsec(1000);
+	wait1Msec(1000);
 	
 	startTask(hit);
   // ..........................................................................
-
+	}
 }
 
 task forkliftCheckUp()
