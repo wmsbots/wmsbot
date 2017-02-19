@@ -1,1 +1,22 @@
+task main()
+{
+  wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
 
+  int distance = 100;              // Create an integer variable 'distance' that will represent encoder counts.
+								                   // 360 encoder counts is a full rotation of the axel.
+
+ SensorValue[rightEncoder] = 0;  //Clear the encoders for
+														     //consistancy and accuracy. */
+
+	int	sValue = 0;
+  while(sValue < distance) // While the right encoder is less than distance:
+  {
+  	sValue = SensorValue[rightEncoder] ;
+    motor[rightMotor] = 63;         /* Run both motors        */
+   // motor[leftMotor]  = 63;       /* forward at half speed. */
+  }
+
+  motor[rightMotor] = 0;            /* Stop the motors once desired */
+  motor[leftMotor]  = 0;          /* distance has been reached.   */
+
+}
