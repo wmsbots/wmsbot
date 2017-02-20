@@ -1,22 +1,47 @@
-task main()
-{
-  wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
+#pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  ultrasonicright, sensorSONAR_inch)
+#pragma config(Motor,  port1,           forklift,      tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port2,           dfr,           tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port3,           dfl,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           mpincerl,      tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           mthrowerl,     tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           mthrowerr,     tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port7,           mpincerr,      tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port8,           drr,           tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port9,           drl,           tmotorVex393_MC29, openLoop, reversed)
 
-  int distance = 100;              // Create an integer variable 'distance' that will represent encoder counts.
+task driveForward()
+{
+	motor[dfl]=120;
+	motor[dfr]=120;
+	motor[drl]=120;
+	motor[drr]=120;
+}
+task driveStop()
+{
+	motor[dfl]=0;
+	motor[dfr]=0;
+	motor[drl]=0;
+	motor[drr]=0;
+}
+task autonomous()
+{
+  // ..........................................................................
+ 	wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
+
+  int distance = 1080;              // Create an integer variable 'distance' that will represent encoder counts.
 								                   // 360 encoder counts is a full rotation of the axel.
 
- SensorValue[rightEncoder] = 0;  //Clear the encoders for
+ 	SensorValue[rightEncoder] = 0;  //Clear the encoders for
 														     //consistancy and accuracy. */
 
 	int	sValue = 0;
   while(sValue < distance) // While the right encoder is less than distance:
   {
   	sValue = SensorValue[rightEncoder] ;
-    motor[rightMotor] = 63;         /* Run both motors        */
-   // motor[leftMotor]  = 63;       /* forward at half speed. */
+		startTask(driveForward);
   }
 
-  motor[rightMotor] = 0;            /* Stop the motors once desired */
-  motor[leftMotor]  = 0;          /* distance has been reached.   */
-
+	startTask(driveStop);
+  // ..........................................................................
 }
