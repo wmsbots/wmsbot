@@ -1,4 +1,4 @@
-#pragma config(Sensor, dgtl1,  opsedrive,      sensorQuadEncoder)
+#pragma config(Sensor, dgtl1,  rightEncoder,   sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  ultrasonicright, sensorSONAR_inch)
 #pragma config(Motor,  port1,           forklift,      tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           dfr,           tmotorVex393_MC29, openLoop, reversed)
@@ -50,7 +50,7 @@ void pre_auton()
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
-  SensorValue[opsedrive]=0;
+  SensorValue[rightEncoder]=0;
 
 }
 
@@ -80,8 +80,21 @@ task driveStop()
 task autonomous()
 {
   // ..........................................................................
-	startTask(driveForward);
-	waitUntil(SensorValue[opsedrive] >= 1080);
+ 	wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
+
+  int distance = 1080;              // Create an integer variable 'distance' that will represent encoder counts.
+								                   // 360 encoder counts is a full rotation of the axel.
+
+ 	SensorValue[rightEncoder] = 0;  //Clear the encoders for
+														     //consistancy and accuracy. */
+
+	int	sValue = 0;
+  while(sValue < distance) // While the right encoder is less than distance:
+  {
+  	sValue = SensorValue[rightEncoder] ;
+		startTask(driveForward);
+  }
+
 	startTask(driveStop);
   // ..........................................................................
 }
@@ -148,12 +161,14 @@ task mpincerCheckOut()
 	}
 }
 
+int mthrower = 120;
+
 task mthrowerCheckUp()
 {
 	if(vexRT[Btn5U]==1)
 	{
-		motor[mthrowerl]=120; //Raises thrower whBtn7U is pressed
-		motor[mthrowerr]=120;
+		motor[mthrowerl]=mthrower; //Raises thrower whBtn7U is pressed
+		motor[mthrowerr]=mthrower;
 	}
 	else if(vexRT[Btn5U]==0 && vexRT[Btn5D]==0)
 	{
@@ -166,8 +181,8 @@ task mthrowerCheckDown()
 {
 	if(vexRT[Btn5D]==1)
 	{
-		motor[mthrowerl]=0;
-		motor[mthrowerr]=0;
+		motor[mthrowerl]=-mthrower;
+		motor[mthrowerr]=-mthrower;
 	}
 	else if(vexRT[Btn5D]==0 && vexRT[Btn5U]==0)
 	{
@@ -183,12 +198,20 @@ task usercontrol()
 
   while (true)
   {
-			//Right side of the robot is controlled by the right joystick, Y-axis
-	    motor[dfr] = vexRT[Ch2];
-	    motor[drr]  = vexRT[Ch2];
-	    //Left side of the robot is controlled by the left joystick, Y-axis
-	    motor[dfl] = vexRT[Ch3];
-	    motor[drl]  = vexRT[Ch3];
+								
+			int threshold = 15;
+			
+			if(vexRT[Ch2] >= threshold || vexRT[Ch3] >= threshold)
+			{
+				//Right side of the robot is controlled by the right joystick, Y-axis
+				
+		    motor[dfr] = vexRT[Ch2];
+		    motor[drr]  = vexRT[Ch2];
+		    //Left side of the robot is controlled by the left joystick, Y-axis
+		    motor[dfl] = vexRT[Ch3];
+		    motor[drl]  = vexRT[Ch3];
+		  }
+		  startTask(driveStop);
 
 			startTask(forkliftCheckUp);
 
@@ -203,8 +226,6 @@ task usercontrol()
 			startTask(mthrowerCheckDown);
 
     // ........................................................................
-
-
   }
 }
 
