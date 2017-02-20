@@ -80,22 +80,6 @@ task driveStop()
 task autonomous()
 {
   // ..........................................................................
- 	wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
-
-  int distance = 1080;              // Create an integer variable 'distance' that will represent encoder counts.
-								                   // 360 encoder counts is a full rotation of the axel.
-
- 	SensorValue[rightEncoder] = 0;  //Clear the encoders for
-														     //consistancy and accuracy. */
-
-	int	sValue = 0;
-  while(sValue < distance) // While the right encoder is less than distance:
-  {
-  	sValue = SensorValue[rightEncoder] ;
-		startTask(driveForward);
-  }
-
-	startTask(driveStop);
   // ..........................................................................
 }
 
