@@ -1,6 +1,8 @@
 #pragma config(Motor,  port1,           dr2,           tmotorNone, openLoop)
 #pragma config(Motor,  port2,           lift1,         tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           lift2,         tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           lift1b,        tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port5,           lift2b,        tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port6,           dr1,           tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           dl1,           tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port10,          dl2,           tmotorNone, openLoop)
@@ -16,13 +18,17 @@ task liftCheckUp()
 {
 	if(vexRT[Btn6U]==1)
 	{
-		motor[lift1]=120; //Raises lift whBtn6U is pressed
+		motor[lift1]=120;
+		motor[lift1b]=120;//Raises lift whBtn6U is pressed
 		motor[lift2]=120;
+		motor[lift2b]=120;
 	}
 	else if(vexRT[Btn6U]==0 && vexRT [Btn6D]==0)
 	{
-		motor[lift1]=0; //Stop thrower
+		motor[lift1]=0;
+		motor[lift1b]=0;//Stop thrower
 		motor[lift2]=0;
+		motor[lift2b]=0;
 	}
 }
 
@@ -30,13 +36,17 @@ task liftCheckDown()
 {
 	if(vexRT[Btn6D]==1)
 	{
-		motor[lift1]=-100; //lowers lift while 6D is pressed
+		motor[lift1]=-100;
+		motor[lift1b]=-100;//lowers lift while 6D is pressed
+		motor[lift2]=-100;
 		motor[lift2]=-100;
 	}
 	else if(vexRT[Btn5D]==0 && vexRT[Btn5U]==0)
 	{
-		motor[lift1]=0; //Stop thrower
+		motor[lift1]=0;
+		motor[lift1b]=0;//Stop thrower
 		motor[lift2]=0;
+		motor[lift2b]=0;
 	}
 }
 
