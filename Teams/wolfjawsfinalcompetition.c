@@ -1,5 +1,6 @@
-#pragma config(Sensor, dgtl1,  ultrasonicfront, sensorSONAR_mm)
-#pragma config(Sensor, dgtl3,  ultrasonicright, sensorSONAR_inch)
+#pragma config(Sensor, dgtl1,  rightSonar,     sensorSONAR_mm)
+#pragma config(Sensor, dgtl3,  rightEncoder,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl5,  pincerEncoder,  sensorRotation)
 #pragma config(Motor,  port2,            ,             tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           dr,            tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port4,           mpincerl,      tmotorVex393_MC29, openLoop)
@@ -59,14 +60,71 @@ void pre_auton()
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+task driveForward()
+{
+	motor[dl]=120;	
+	motor[dr]=120;
+}
+
+task driveStop()
+{
+	motor[dl]=-120;	
+	motor[dr]=-120;
+}
 
 task autonomous()
 {
   // ..........................................................................
-	// ..........................................................................
+	int distance = 1080;
+	int	sValue = 0;
+	
+	while(sValue < 720) // While the right encoder is less than distance:
+  {
+   sValue = SensorValue[rightEncoder] ;
+	 motor[mpincerl]=120;
+	 motor[mpincerr]=120;
+  }
+	motor[mpincerl]=0;
+	motor[mpincerr]=0;
+	
+	
+  sValue = 0;
+  while(sValue < distance) // While the right encoder is less than distance:
+  {
+  	sValue = SensorValue[rightEncoder] ;
+		startTask(driveForward);
+  }
+  
+	startTask(driveStop);
+	if(SensorValue[rightSonar] > 12)
+	{
+		while(sValue < 1440) // While the right encoder is less than distance:
+	  {
+	   sValue = SensorValue[rightEncoder] ;
+		 motor[dl]=120;
+		 motor[dr]=-120;
+	  }
+	}
+	else if(SensorValue[rightSonar] <= 12)
+	{
+		while(sValue < 1440) // While the right encoder is less than distance:
+	  {
+	   sValue = SensorValue[rightEncoder] ;
+		 motor[dl]=-120;
+		 motor[dr]=120;
+		}
+	}
+	motor[mpincerl]=0;
+	motor[mpincerr]=0;
 
-  // Remove this function call once you have "real" code.
-  AutonomousCodePlaceholderForTesting();
+		
+	while(sValue < 480) // While the right encoder is less than distance:
+  {
+  	sValue = SensorValue[rightEncoder] ;
+	
+  }
+	
+	// ..........................................................................
 }
 
 /*---------------------------------------------------------------------------*/
@@ -227,7 +285,7 @@ task usercontrol()
 				}
 				else                                    // If the right joystick is within the threshold:
 				{
-					motor[dr] = 0;                // Stop the right motor (cancel noise)
+					motor[dr] = 0;                				// Stop the right motor (cancel noise)
 				}
 
 			startTask(toggleToggleSwitch);
