@@ -63,14 +63,14 @@ task autonomous()
 	}
   }
   startTask(driveStop); //Stop all drive motors
-  motor[mpincerl]=0;
-  motor[mpincerr]=0;
-  
+  motor[mpincerl]=120;
+  motor[mpincerr]=1
+  distance = 1800;
    while(sValue < distance) 
   {
   	sValue = SensorValue[rightEncoder] ;
 	startTask(driveForward);
   }
-	
+  startTask(driveStop);
   // ..........................................................................
 }
