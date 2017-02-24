@@ -27,39 +27,38 @@ task driveStop()
 task autonomous()
 {
   // ..........................................................................
-  wait1Msec(2000);                 // Wait 2000 milliseconds before continuing.
+  wait1Msec(2000);                 
 
-  int distance = 1080;             
-
- 	SensorValue[rightEncoder] = 0;
-														 
-  int sValue = 0;
-  while(sValue < distance) 
+  int distance = 1080; //Set distance to 0     
+  
+  int sValue = 0; //Track encoder Value
+  while(sValue < distance)  //While encoder value is less than the set distance
   {
-  	sValue = SensorValue[rightEncoder] ;
-	startTask(driveForward);
+  	sValue = SensorValue[rightEncoder]; //Update tracking value to real-time encoder value
+	startTask(driveForward); //Set all drive motors to forward
   }
-
-  startTask(driveStop);
-  if(SensorValue[rightSonar] > 12)
+  startTask(driveStop); //Stop all drive motors
+  
+  sValue = 0;
+  if(SensorValue[rightSonar] > 12) //If the robot is on the left side
   {
-    while(sValue < 1440) 
+    while(sValue < 1440) //While encoder value is less than 4 axle rotations
     {
-    	sValue = SensorValue[rightEncoder] ;
-	motor[dl]=120;
+    	sValue = SensorValue[rightEncoder]; //Update sValue to match real-time encoder value
+	motor[dl]=120; //Turn right
 	motor[dr]=-120;
     }
   }
-  else if(SensorValue[rightSonar] <= 12)
+  else if(SensorValue[rightSonar] <= 12) //If robot is one the right side
   {
-	while(sValue < 1440)
+	while(sValue < 1440) //While encoder value is less than 4 axle rotations
 	{
-	  sValue = SensorValue[rightEncoder] ;
-	  motor[dl]=-120;
+	  sValue = SensorValue[rightEncoder] ; //Update tracking value to match real-time encoder value
+	  motor[dl]=-120; //Turn left
           motor[dr]=120;
 	}
   }
-  startTask(driveStop);
+  startTask(driveStop); //Stop all drive motors
   motor[mpincerl]=0;
   motor[mpincerr]=0;
   
