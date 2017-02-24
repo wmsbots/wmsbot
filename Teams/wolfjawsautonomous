@@ -27,7 +27,11 @@ task driveStop()
 task autonomous()
 {
   // ..........................................................................
-  wait1Msec(2000);                 
+  motor[mpincerl]=120; //Open claw
+  motor[mpincerr]=120;
+  waitMsec(4000);
+  motor[mpincerl]=0;
+  motor[mpincerr]=0;
 
   int distance = 1080; //Set distance to 0     
   
