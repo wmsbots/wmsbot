@@ -1,0 +1,47 @@
+#define C1LX vexRT[Ch4]
+#define C1LY vexRT[Ch3]
+#define C1RX vexRT[Ch1]
+
+task main() {
+
+	while(true) {
+	
+		// Y component, X component, Rotation
+		motor[FL] = -C1LY - C1LX - C1RX;
+		motor[FR] =  C1LY - C1LX - C1RX;
+		motor[BR] =  C1LY + C1LX - C1RX;
+		motor[BL] = -C1LY + C1LX - C1RX;
+
+		// Motor values can only be updated every 20ms
+		wait10Msec(2);
+
+	}
+
+}
+
+// Cody's ROBOTC + Holonomic Code
+// =======================
+// Usage:	Drive code for "+" Holonomic drive
+// License:	Public Domain, use at your own risk.
+
+// Controller 1/2, Stick L/R, Axis X/Y
+#define C1LX vexRT[Ch4]
+#define C1LY vexRT[Ch3]
+#define C1RX vexRT[Ch1]
+
+task main() {
+
+	while(true) {
+	
+		// Y component, X component, Rotation
+		motor[FR] = -C1LX - C1RX;
+		motor[LE] = -C1LY - C1RX;
+		motor[RI] =  C1LY - C1RX;
+		motor[BK] =  C1LX - C1RX;
+
+		// Motor values can only be updated every 20ms
+		wait10Msec(2);
+
+	}
+
+}
